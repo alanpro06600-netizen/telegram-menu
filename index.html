@@ -3,28 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Menu CBD</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Essentiel pour mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    /* ------------------- Reset global ------------------- */
+    /* ------------------- Reset et style global ------------------- */
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-    body { 
-      background: #121212; 
-      color: #fff; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      min-height: 100vh; 
-      padding: 10px;
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
 
     /* ------------------- Container du menu ------------------- */
     .menu-container {
       background: #1e1e1e;
-      padding: 20px;
-      border-radius: 20px;
+      height: 100%;
       width: 100%;
-      max-width: 400px; /* parfait pour mobile */
+      max-width: 400px; /* pour confort sur mobile */
+      padding: 20px;
+      border-radius: 0; /* coins remplissent tout l'écran */
+      overflow-y: auto; /* scroll si nécessaire */
       box-shadow: 0 8px 20px rgba(0,0,0,0.6);
       animation: fadeIn 0.8s ease-out;
     }
@@ -81,7 +89,7 @@
     /* ------------------- Boutons ------------------- */
     .options {
       display: flex;
-      flex-direction: column; /* Empile les boutons verticalement pour mobile */
+      flex-direction: column; /* empile les boutons verticalement pour mobile */
       gap: 10px;
     }
 
@@ -122,6 +130,7 @@
       .product h2 { font-size: 1.1rem; }
       .option-button { font-size: 0.95rem; padding: 12px; }
     }
+
   </style>
 </head>
 <body>
@@ -166,8 +175,10 @@
 
   <script>
     const tg = window.Telegram.WebApp;
+    tg.expand();  // Prend tout l'écran
     tg.ready();
 
+    // Envoie la donnée du bouton au bot
     document.querySelectorAll(".option-button").forEach(button => {
       button.addEventListener("click", () => {
         const value = button.getAttribute("data-value");
