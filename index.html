@@ -7,48 +7,73 @@
   <style>
     /* ------------------- Reset et style global ------------------- */
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-    body { background: #f5f5f5; color: #333; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    body { 
+      background: #121212; 
+      color: #fff; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      overflow-x: hidden;
+    }
 
     /* ------------------- Container du menu ------------------- */
     .menu-container {
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      width: 350px;
-      max-width: 90%;
+      background: #1e1e1e;
+      padding: 25px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      width: 380px;
+      max-width: 95%;
+      animation: fadeIn 0.8s ease-out;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 15px;
-      color: #2c7a7b;
+      margin-bottom: 10px;
+      color: #00ff99;
+      text-shadow: 0 0 8px #00ff99;
+      animation: glow 1.5s infinite alternate;
     }
 
     p.description {
       text-align: center;
       margin-bottom: 25px;
-      color: #555;
+      color: #bbb;
+      font-size: 0.95rem;
     }
 
     /* ------------------- Les cartes produits ------------------- */
     .product {
-      background: #e0f7fa;
-      border-radius: 12px;
+      background: #2a2a2a;
+      border-radius: 15px;
       padding: 15px;
-      margin-bottom: 15px;
-      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
 
     .product:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,255,153,0.4);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover img {
+      transform: scale(1.05);
     }
 
     .product h2 {
-      margin-bottom: 10px;
-      color: #00796b;
+      margin-bottom: 12px;
+      color: #00ff99;
     }
 
     .options {
@@ -60,30 +85,45 @@
 
     .option-button {
       flex: 1;
-      padding: 10px;
-      background: #00796b;
-      color: #fff;
+      padding: 12px;
+      background: linear-gradient(145deg, #00ff99, #00cc7a);
+      color: #121212;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
       text-align: center;
-      transition: background 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      box-shadow: 0 4px 10px rgba(0,255,153,0.3);
     }
 
     .option-button:hover {
-      background: #004d40;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,255,153,0.5);
+      background: linear-gradient(145deg, #00cc7a, #00ff99);
+    }
+
+    /* ------------------- Animations ------------------- */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 8px #00ff99; }
+      100% { text-shadow: 0 0 20px #00ff99; }
     }
   </style>
 </head>
 <body>
   <div class="menu-container">
     <h1>Menu CBD</h1>
-    <p class="description">Sélectionnez la quantité désirée 👇</p>
+    <p class="description">Voici nos tarifs 💶 - Cliquez pour choisir</p>
 
     <!-- Produit 1 -->
     <div class="product">
-      <h2>Option 1</h2>
+      <img src="https://via.placeholder.com/350x150.png?text=Frozen" alt="Frozen CBD">
+      <h2>Frozen</h2>
       <div class="options">
         <button class="option-button" data-value="10€ - 1g">10€ - 1g</button>
         <button class="option-button" data-value="20€ - 2g">20€ - 2g</button>
@@ -93,7 +133,8 @@
 
     <!-- Produit 2 -->
     <div class="product">
-      <h2>Option 2</h2>
+      <img src="https://via.placeholder.com/350x150.png?text=Mousseux" alt="Mousseux CBD">
+      <h2>Mousseux</h2>
       <div class="options">
         <button class="option-button" data-value="10€ - 2g">10€ - 2g</button>
         <button class="option-button" data-value="20€ - 4g">20€ - 4g</button>
@@ -106,7 +147,7 @@
     const tg = window.Telegram.WebApp;
     tg.ready();
 
-    // Quand l'utilisateur clique sur un bouton, on envoie la donnée au bot
+    // Envoie la donnée du bouton au bot
     document.querySelectorAll(".option-button").forEach(button => {
       button.addEventListener("click", () => {
         const value = button.getAttribute("data-value");
