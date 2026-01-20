@@ -1,192 +1,183 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Menu 📜</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    /* ------------------- Reset et style global ------------------- */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu CBD Artistique</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  /* ------------------- Reset global ------------------- */
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(120deg, #0d0d0d, #1a1a1a, #0d0d0d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 
-    body {
-      background: #121212;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+  /* ------------------- Container principal ------------------- */
+  .menu-container {
+    width: 100%;
+    max-width: 420px;
+    height: 100%;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 0;
+    overflow-y: auto;
+    box-shadow: 0 0 40px rgba(0, 255, 153, 0.5);
+    animation: fadeIn 1s ease-out;
+  }
 
-    /* ------------------- Container du menu ------------------- */
-    .menu-container {
-      background: #1e1e1e;
-      height: 100%;
-      width: 100%;
-      max-width: 400px; /* pour confort sur mobile */
-      padding: 20px;
-      border-radius: 0; /* coins remplissent tout l'écran */
-      overflow-y: auto; /* scroll si nécessaire */
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-      animation: fadeIn 0.8s ease-out;
-    }
+  h1 {
+    text-align: center;
+    color: #00ff99;
+    font-size: 1.7rem;
+    text-shadow: 0 0 12px #00ff99, 0 0 25px #00ff99, 0 0 40px #00ff99;
+    margin-bottom: 10px;
+    animation: glow 2s infinite alternate;
+  }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-      color: #00ff99;
-      text-shadow: 0 0 8px #00ff99;
-      animation: glow 1.5s infinite alternate;
-      font-size: 1.5rem;
-    }
+  p.description {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 25px;
+    font-size: 1rem;
+  }
 
-    p.description {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #bbb;
-      font-size: 1rem;
-    }
+  /* ------------------- Cartes produits ------------------- */
+  .product {
+    background: #2b2b2b;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
 
-    /* ------------------- Les cartes produits ------------------- */
-    .product {
-      background: #2a2a2a;
-      border-radius: 15px;
-      padding: 12px;
-      margin-bottom: 18px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      overflow: hidden;
-    }
+  .product:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 255, 153, 0.5);
+  }
 
-    .product:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 25px rgba(0,255,153,0.4);
-    }
+  .product img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 2px solid #00ff99;
+    transition: transform 0.3s ease;
+  }
 
-    .product img {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      transition: transform 0.3s ease;
-    }
+  .product:hover img {
+    transform: scale(1.05);
+  }
 
-    .product:hover img {
-      transform: scale(1.05);
-    }
+  .product h2 {
+    color: #00ff99;
+    font-size: 1.3rem;
+    margin: 12px;
+  }
 
-    .product h2 {
-      margin-bottom: 10px;
-      color: #00ff99;
-      font-size: 1.2rem;
-    }
+  /* ------------------- Boutons design ------------------- */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 12px 12px 12px;
+  }
 
-    /* ------------------- Boutons ------------------- */
-    .options {
-      display: flex;
-      flex-direction: column; /* empile les boutons verticalement pour mobile */
-      gap: 10px;
-    }
+  .option-button {
+    padding: 14px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #00ff99, #00cc7a);
+    color: #0d0d0d;
+    box-shadow: 0 6px 12px rgba(0,255,153,0.3);
+    transition: all 0.3s ease;
+  }
 
-    .option-button {
-      padding: 14px;
-      background: linear-gradient(145deg, #00ff99, #00cc7a);
-      color: #121212;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-      box-shadow: 0 4px 10px rgba(0,255,153,0.3);
-    }
+  .option-button:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 10px 25px rgba(0,255,153,0.5);
+    background: linear-gradient(135deg, #00cc7a, #00ff99);
+  }
 
-    .option-button:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,255,153,0.5);
-      background: linear-gradient(145deg, #00cc7a, #00ff99);
-    }
+  /* ------------------- Animations ------------------- */
+  @keyframes fadeIn {
+    0% {opacity:0; transform: translateY(20px);}
+    100% {opacity:1; transform: translateY(0);}
+  }
 
-    /* ------------------- Animations ------------------- */
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px);}
-      100% { opacity: 1; transform: translateY(0);}
-    }
+  @keyframes glow {
+    0% { text-shadow: 0 0 12px #00ff99, 0 0 25px #00ff99; }
+    100% { text-shadow: 0 0 20px #00ff99, 0 0 40px #00ff99; }
+  }
 
-    @keyframes glow {
-      0% { text-shadow: 0 0 8px #00ff99; }
-      100% { text-shadow: 0 0 20px #00ff99; }
-    }
-
-    /* ------------------- Mobile optimizations ------------------- */
-    @media (max-width: 450px) {
-      h1 { font-size: 1.4rem; }
-      .product h2 { font-size: 1.1rem; }
-      .option-button { font-size: 0.95rem; padding: 12px; }
-    }
-
-  </style>
+  /* ------------------- Mobile optimizations ------------------- */
+  @media (max-width: 450px) {
+    h1 { font-size: 1.5rem; }
+    .product h2 { font-size: 1.2rem; }
+    .option-button { font-size: 0.95rem; padding: 12px; }
+  }
+</style>
 </head>
 <body>
-  <div class="menu-container">
-    <h1>Menu CBD</h1>
-    <p class="description">Voici nos tarifs 💶</p>
+<div class="menu-container">
+  <h1>Menu CBD Artistique</h1>
+  <p class="description">Sélectionnez votre produit 💶</p>
 
-    <!-- Produit 1 : Mousseux -->
-    <div class="product">
-      <img src="mousseux.png" alt="Mousseux">
-      <h2>Mousseux</h2>
-      <div class="options">
-        <button class="option-button" data-value="10€ - 2g">10€ - 2g</button>
-        <button class="option-button" data-value="20€ - 4g">20€ - 4g</button>
-        <button class="option-button" data-value="50€ - 10g">50€ - 10g</button>
-      </div>
+  <!-- Frozen -->
+  <div class="product">
+    <img src="frozen.png" alt="Frozen CBD">
+    <h2>Frozen</h2>
+    <div class="options">
+      <button class="option-button" data-value="10€ - 1g">10€ - 1g</button>
+      <button class="option-button" data-value="20€ - 2g">20€ - 2g</button>
+      <button class="option-button" data-value="50€ - 5g">50€ - 5g</button>
     </div>
-    
-    <!-- Produit 2 : Frozen -->
-    <div class="product">
-      <img src="https://raw.githubusercontent.com/alanpro06600-netizen/Telegram-image/main/IMG_0559.png" alt="Frozen">
-      <h2>Frozen</h2>
-      <div class="options">
-        <button class="option-button" data-value="10€ - 1g">10€ - 1g</button>
-        <button class="option-button" data-value="20€ - 2g">20€ - 2g</button>
-        <button class="option-button" data-value="50€ - 5g">50€ - 5g</button>
-      </div>
-    </div>
-
-    
-
-    <!-- Produit 3 : Static -->
-    <div class="product">
-      <img src="static.png" alt="Static">
-      <h2>Static</h2>
-      <div class="options">
-        <button class="option-button" data-value="10€ - 1g">10€ - 1g</button>
-        <button class="option-button" data-value="20€ - 2g">20€ - 2g</button>
-        <button class="option-button" data-value="50€ - 5g">50€ - 5g</button>
-      </div>
-    </div>
-
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();  // Prend tout l'écran
-    tg.ready();
+  <!-- Mousseux -->
+  <div class="product">
+    <img src="mousseux.png" alt="Mousseux CBD">
+    <h2>Mousseux</h2>
+    <div class="options">
+      <button class="option-button" data-value="10€ - 2g">10€ - 2g</button>
+      <button class="option-button" data-value="20€ - 4g">20€ - 4g</button>
+      <button class="option-button" data-value="50€ - 10g">50€ - 10g</button>
+    </div>
+  </div>
 
-    // Envoie la donnée du bouton au bot
-    document.querySelectorAll(".option-button").forEach(button => {
-      button.addEventListener("click", () => {
-        const value = button.getAttribute("data-value");
-        tg.sendData(value);
-      });
+  <!-- Static -->
+  <div class="product">
+    <img src="static.png" alt="Static CBD">
+    <h2>Static</h2>
+    <div class="options">
+      <button class="option-button" data-value="10€ - 1g">10€ - 1g</button>
+      <button class="option-button" data-value="20€ - 2g">20€ - 2g</button>
+      <button class="option-button" data-value="50€ - 5g">50€ - 5g</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.expand();  // Remplit tout l'écran du téléphone
+  tg.ready();
+
+  document.querySelectorAll(".option-button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const value = btn.getAttribute("data-value");
+      tg.sendData(value);
     });
-  </script>
+  });
+</script>
 </body>
 </html>
