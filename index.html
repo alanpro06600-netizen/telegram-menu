@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menu CBD Artistique</title>
+<title>Menu CBD Signature</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   /* ------------------- Reset global ------------------- */
@@ -11,33 +11,32 @@
 
   html, body { height: 100%; }
   body {
-    background: linear-gradient(120deg, #0d0d0d, #1a1a1a, #0d0d0d);
+    background: #0a0a0a; /* fond signature sombre unique */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
   }
 
-  /* ------------------- Container principal ------------------- */
+  /* ------------------- Container ------------------- */
   .menu-container {
     width: 100%;
     max-width: 420px;
     height: 100%;
     padding: 20px;
-    background: #1e1e1e;
-    border-radius: 0;
+    background: #111; /* fond neutre mais sombre pour faire ressortir tes couleurs */
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
     overflow-y: auto;
-    box-shadow: 0 0 40px rgba(0, 255, 153, 0.5);
-    animation: fadeIn 1s ease-out;
+    box-shadow: 0 0 40px rgba(0, 255, 120, 0.5); /* glow signature */
   }
 
   h1 {
     text-align: center;
-    color: #00ff99;
+    color: #00ff78; /* couleur signature */
     font-size: 1.7rem;
-    text-shadow: 0 0 12px #00ff99, 0 0 25px #00ff99, 0 0 40px #00ff99;
+    text-shadow: 0 0 10px #00ff78, 0 0 20px #00ff78;
     margin-bottom: 10px;
-    animation: glow 2s infinite alternate;
   }
 
   p.description {
@@ -49,25 +48,25 @@
 
   /* ------------------- Cartes produits ------------------- */
   .product {
-    background: #2b2b2b;
-    border-radius: 20px;
+    background: #1c1c1c; /* carte sombre */
+    border-left: 5px solid #00ff78; /* bordure signature reconnaissable */
+    border-radius: 15px;
     margin-bottom: 20px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    position: relative;
   }
 
   .product:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(0, 255, 153, 0.5);
+    box-shadow: 0 15px 30px rgba(0, 255, 120, 0.6);
   }
 
   .product img {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border-bottom: 2px solid #00ff99;
+    border-bottom: 2px solid #00ff78;
     transition: transform 0.3s ease;
   }
 
@@ -76,12 +75,12 @@
   }
 
   .product h2 {
-    color: #00ff99;
+    color: #00ff78;
     font-size: 1.3rem;
     margin: 12px;
   }
 
-  /* ------------------- Boutons design ------------------- */
+  /* ------------------- Boutons signature ------------------- */
   .options {
     display: flex;
     flex-direction: column;
@@ -96,27 +95,16 @@
     text-align: center;
     border: none;
     border-radius: 15px;
-    background: linear-gradient(135deg, #00ff99, #00cc7a);
-    color: #0d0d0d;
-    box-shadow: 0 6px 12px rgba(0,255,153,0.3);
+    background: #00ff78; /* couleur signature */
+    color: #0a0a0a;
+    box-shadow: 0 6px 12px rgba(0,255,120,0.3);
     transition: all 0.3s ease;
   }
 
   .option-button:hover {
     transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 10px 25px rgba(0,255,153,0.5);
-    background: linear-gradient(135deg, #00cc7a, #00ff99);
-  }
-
-  /* ------------------- Animations ------------------- */
-  @keyframes fadeIn {
-    0% {opacity:0; transform: translateY(20px);}
-    100% {opacity:1; transform: translateY(0);}
-  }
-
-  @keyframes glow {
-    0% { text-shadow: 0 0 12px #00ff99, 0 0 25px #00ff99; }
-    100% { text-shadow: 0 0 20px #00ff99, 0 0 40px #00ff99; }
+    box-shadow: 0 10px 25px rgba(0,255,120,0.5);
+    background: #00cc5e; /* léger changement au hover */
   }
 
   /* ------------------- Mobile optimizations ------------------- */
@@ -129,8 +117,8 @@
 </head>
 <body>
 <div class="menu-container">
-  <h1>Menu CBD Artistique</h1>
-  <p class="description">Sélectionnez votre produit 💶</p>
+  <h1>Menu CBD Signature</h1>
+  <p class="description">Reconnaissable dès le premier coup d’œil 💶</p>
 
   <!-- Frozen -->
   <div class="product">
@@ -169,7 +157,7 @@
 
 <script>
   const tg = window.Telegram.WebApp;
-  tg.expand();  // Remplit tout l'écran du téléphone
+  tg.expand();  // plein écran
   tg.ready();
 
   document.querySelectorAll(".option-button").forEach(btn => {
