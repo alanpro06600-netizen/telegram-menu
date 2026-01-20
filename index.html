@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Menu Produits</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 15px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .prices button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background: #0088cc;
+    color: white;
+    cursor: pointer;
+  }
+
+  .prices button:hover {
+    opacity: 0.9;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- PRODUIT 1 -->
+<div class="card">
+  <h2>Produit 1</h2>
+  <p>Choisis un montant</p>
+  <div class="prices">
+    <button onclick="choose('Produit 1', 10)">10 €</button>
+    <button onclick="choose('Produit 1', 20)">20 €</button>
+    <button onclick="choose('Produit 1', 50)">50 €</button>
+  </div>
+</div>
+
+<!-- PRODUIT 2 -->
+<div class="card">
+  <h2>Produit 2</h2>
+  <p>Choisis un montant</p>
+  <div class="prices">
+    <button onclick="choose('Produit 2', 10)">10 €</button>
+    <button onclick="choose('Produit 2', 20)">20 €</button>
+    <button onclick="choose('Produit 2', 50)">50 €</button>
+  </div>
+</div>
+
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+
+  function choose(product, price) {
+    const data = {
+      product: product,
+      price: price
+    };
+
+    tg.sendData(JSON.stringify(data));
+  }
+</script>
+
+</body>
+</html>
